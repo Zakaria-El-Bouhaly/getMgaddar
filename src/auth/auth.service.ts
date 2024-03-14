@@ -24,4 +24,13 @@ export class AuthService {
   getAuthState() {
     return this.afAuth.authState;
   }
+
+  // get current user
+  getCurrentUser() {
+    return this.afAuth.currentUser;
+  }
+
+  logout() {
+    this.afAuth.signOut();
+  }
 }
