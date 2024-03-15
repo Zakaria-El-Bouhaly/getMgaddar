@@ -6,18 +6,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthService } from 'src/auth/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { FirebaseAppModule } from '@angular/fire/app';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ExerciseFormComponent } from './exercise/exercise-form/exercise-form.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, HeaderComponent],
+  declarations: [AppComponent, DashboardComponent, HeaderComponent, ExerciseFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    provideFirestore(() => getFirestore()),
+    FirebaseAppModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

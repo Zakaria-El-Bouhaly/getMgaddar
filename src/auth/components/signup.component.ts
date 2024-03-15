@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'mg-signup',
@@ -16,6 +16,8 @@ import { RouterModule } from '@angular/router';
 })
 export class SignupComponent {
   private authSvc = inject(AuthService);
+  private router = inject(Router);
+
   signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])
@@ -23,7 +25,8 @@ export class SignupComponent {
 
   async signUp() {
     try {
-    await this.authSvc.signup(this.getCtrls.email.value!, this.getCtrls.password.value!);    
+    await this.authSvc.signup(this.getCtrls.email.value!, this.getCtrls.password.value!);  
+    this.router.navigate(['auth/login']);
     } catch (err) {
       console.error(err);
     }
