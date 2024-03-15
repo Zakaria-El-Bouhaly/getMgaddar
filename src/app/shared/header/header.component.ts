@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -19,7 +19,7 @@ export class HeaderComponent {
       if (user) {
         this.isAuth = true;
         this.currentUser = user;
-        console.log(user);
+       
       }
       else {
         this.isAuth = false;

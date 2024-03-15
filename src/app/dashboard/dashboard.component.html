@@ -1,10 +1,10 @@
 <div class="mt-32">
-    <div class="px-4 sm:px-8 max-w-5xl m-auto">
+    <div class="grid grid-cols-1 gap-4 w-3/4 mx-auto">
 
         <!-- component -->
 
         <!-- grid of cards -->
-        <div class="flex flex-wrap flex-row space-x-4 justify-center">
+        <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
             <p-card header="Total minutes">
                 <p class="m-0 font-bold">
                     <img src="assets/minute.png" alt="clock" class="w-10 h-10 inline-block mr-2">
@@ -24,15 +24,19 @@
                     <img src="assets/fitness.png" alt="clock" class="w-10 h-10 inline-block mr-2">
                     {{ totalExercises }}
                 </p>
-            </p-card>
+            </p-card>         
+
         </div>
+
+        <h3 class="text-center mt-4  font-bold text-2xl">My Progress</h3>
+        <mg-graphs  class="w-full" 
+        [yValues]="yValues" [xValues]="xValues"></mg-graphs>
 
 
 
 
         <p-dialog [(visible)]=" showExerciseForm">
-            <mg-exercise-form (formSubmitted)="sumbmitExercise($event)"
-                [exercise]="selectedExercise"></mg-exercise-form>
+            <mg-exercise-form (formSubmitted)="submitExercise($event)" [exercise]="selectedExercise"></mg-exercise-form>
         </p-dialog>
 
 
@@ -41,7 +45,8 @@
         ">Exercises</h1>
 
         <button (click)="addExercise()"
-            class=" bg-blue-500 text-white py-1 px-2 rounded-md hover:bg-blue-600 mb-2">Add</button>
+            class=" bg-blue-500 text-white py-1 px-2 rounded-md hover:bg-blue-600 mb-2 w-1/4 
+            ">Add</button>
 
         <mg-exercise-list [exercises]="exercises" (delete)="deleteExercise($event)"
             (edit)="editExercise($event)"></mg-exercise-list>

@@ -1,0 +1,29 @@
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+        <a class="flex items-center space-x-3 rtl:space-x-reverse" href="#" [routerLink]="['/']">
+            <img src="assets/weights.png" class="h-8" alt="Flowbite Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Mgadder</span>
+        </a>
+        <div class="flex items-center space-x-6 rtl:space-x-reverse">
+
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" *ngIf="!isAuth"
+                [routerLink]="['/auth/login']">Login</button>
+
+
+
+            <a href="#" class="text-sm text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 p-2 rounded hover:bg-gray-500
+            " [routerLink]="['/dashboard/profile']" *ngIf="isAuth">{{currentUser?.displayName ?? 'Profile'}}
+                <i class="pi pi-user"></i>
+            </a>
+
+
+            <a href="#" class="text-sm  text-gray-300 bg-gray-100 dark:bg-gray-800 p-2 rounded
+            hover:bg-gray-500
+            " *ngIf="isAuth" (click)="logout()">
+                <i class="pi pi-sign-out"></i>
+            </a>
+
+        </div>
+
+    </div>
+</nav>

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { doc, docData, DocumentReference, Firestore, getDoc, setDoc, updateDoc, collection, addDoc, deleteDoc, collectionData, Timestamp } from "@angular/fire/firestore";
+import { doc, Firestore, updateDoc, collection, addDoc, deleteDoc, collectionData } from "@angular/fire/firestore";
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Exercise } from './exercise';
 
 @Injectable({
@@ -14,13 +14,9 @@ export class ExerciseService {
   private auth: AuthService = inject(AuthService);
 
   async addExercise(exercise: any) {
-    try {
-      const user = await this.auth.getCurrentUser();
-      const docRef = await addDoc(collection(this.fireStore, `users/${user?.uid}/exercises`), exercise);
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
+
+    const user = await this.auth.getCurrentUser();
+    const docRef = await addDoc(collection(this.fireStore, `users/${user?.uid}/exercises`), exercise);
   }
 
   async getExercises() {
@@ -29,8 +25,10 @@ export class ExerciseService {
   }
 
   async deleteExercise(id: string) {
+
     const user = await this.auth.getCurrentUser();
     await deleteDoc(doc(this.fireStore, `users/${user?.uid}/exercises/${id}`));
+
   }
 
   async updateExercise(id: string, exercise: any) {
@@ -38,7 +36,5 @@ export class ExerciseService {
     await updateDoc(doc(this.fireStore, `users/${user?.uid}/exercises/${id}`), exercise);
   }
 
-
-
-
 }
+
