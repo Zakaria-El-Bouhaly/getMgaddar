@@ -1,0 +1,12 @@
+<ul class="border border-gray-200 rounded overflow-hidden shadow-md">
+    <li *ngFor="let exercise of exercises" class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none 
+        border-gray-200 transition-all duration-300 ease-in-out flex justify-between items-center">
+        {{ exercise.name }} - {{ exercise.duration }} minutes - {{ exercise.calories }} calories burned
+        added on {{ exercise.date | date: 'dd/MM/yyyy' }}
+        <button (click)="deleteExercise(exercise.id!!)"
+            class=" bg-red-500 text-white py-1 px-2 rounded-md hover:bg-red-600 justify-self-end">Delete</button>
+
+        <button (click)="editExercise(exercise)"
+            class=" bg-blue-500 text-white py-1 px-2 rounded-md hover:bg-blue-600 justify-self-end">Edit</button>
+    </li>
+</ul>

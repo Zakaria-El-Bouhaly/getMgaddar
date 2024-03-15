@@ -12,9 +12,13 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { FirebaseAppModule } from '@angular/fire/app';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExerciseFormComponent } from './exercise/exercise-form/exercise-form.component';
+import { DialogModule } from 'primeng/dialog';
+import { ExerciseListComponent } from './exercise/exercise-list/exercise-list.component';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, HeaderComponent, ExerciseFormComponent],
+  declarations: [AppComponent, DashboardComponent, HeaderComponent, ExerciseFormComponent, ExerciseListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,9 +27,14 @@ import { ExerciseFormComponent } from './exercise/exercise-form/exercise-form.co
     AngularFireAuthModule,
     provideFirestore(() => getFirestore()),
     FirebaseAppModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule,
+    CardModule,
+    ButtonModule,
+    
+
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

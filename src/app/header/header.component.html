@@ -9,6 +9,8 @@
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" *ngIf="!isAuth"
                 [routerLink]="['/auth/login']">Login</button>
 
+                <span class="text-sm text-gray-600 dark:text-gray-300" *ngIf="isAuth">{{currentUser?.email.split('@')[0]}}</span>
+
 
             <a href="#" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline" *ngIf="isAuth"
                 (click)="logout()">Logout</a>

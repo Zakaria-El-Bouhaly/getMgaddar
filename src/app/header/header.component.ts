@@ -12,11 +12,14 @@ export class HeaderComponent {
   private authSvc = inject(AuthService);
   private location = inject(Location);
   isAuth = false;
+  currentUser?: any;
 
   ngOnInit() {
     this.authSvc.getAuthState().subscribe((user) => {
       if (user) {
         this.isAuth = true;
+        this.currentUser = user;
+        console.log(user);
       }
       else {
         this.isAuth = false;

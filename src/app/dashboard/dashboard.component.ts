@@ -9,36 +9,39 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+
+
   private exerciseSvc = inject(ExerciseService);
   exercises: Exercise[] = [];
-  isEditing = false;
-  selectedId: string = '';
+  selectedExercise?: Exercise;
+  showExerciseForm = false;
 
-  exerciseForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    duration: new FormControl('', Validators.required),
-    calories: new FormControl('', [Validators.required, Validators.min(1)]),
-    date: new FormControl('', Validators.required)
-  });
+  totalExercises = 0;
+  totalDuration = 0;
+  totalCalories = 0;
+
+
 
 
   async ngOnInit() {
     (await this.exerciseSvc.getExercises()).subscribe({
-      next: (exercises: Exercise[]) => {
-        console.log(exercises);
+      next: (exercises: Exercise[]) => {     
         this.exercises = exercises;
+        this.totalExercises = exercises.length;
+        this.totalDuration = exercises.reduce((acc, exercise) => acc + exercise.duration, 0);
+        this.totalCalories = exercises.reduce((acc, exercise) => acc + exercise.calories, 0);
       }
     });
+
+
   }
 
-  async sumbmitExercise() {
-    if (this.isEditing) {
-      await this.exerciseSvc.updateExercise(this.selectedId, this.exerciseForm.value);
+  async sumbmitExercise(exercise: Exercise) {
+    if (exercise.id) {
+      await this.exerciseSvc.updateExercise(exercise.id, exercise);
     } else {
-      await this.exerciseSvc.addExercise(this.exerciseForm.value);
+      await this.exerciseSvc.addExercise(exercise);
     }
-    this.isEditing = false;
-    this.exerciseForm.reset();
   }
 
   async deleteExercise(id: string) {
@@ -46,19 +49,12 @@ export class DashboardComponent {
   }
 
   editExercise(exercise: Exercise) {
-    this.isEditing = true;
-    this.exerciseForm.setValue({
-      name: exercise.name,
-      duration: exercise.duration.toString(),
-      calories: exercise.calories.toString(),
-      date: exercise.date.toString().split('T')[0]
-    });
-    this.selectedId = exercise.id ?? '';
+    this.showExerciseForm = true;
+    this.selectedExercise = exercise;
   }
 
-
-  async updateExercise(id: string) {
-    await this.exerciseSvc.updateExercise(id, this.exerciseForm.value);
+  addExercise() {
+    this.showExerciseForm = true;
   }
 
 }

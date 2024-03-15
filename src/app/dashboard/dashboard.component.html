@@ -2,51 +2,48 @@
     <div class="px-4 sm:px-8 max-w-5xl m-auto">
 
         <!-- component -->
-        <div
-            class="relative flex min-h-screen text-gray-900 antialiased flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12 rounded-lg">
-            <div class="relative py-3 sm:w-96 mx-auto text-center">
-                <span class="text-2xl font-light ">Welcome to your dashboard</span>
-                <div class="mt-4 bg-white shadow-md rounded-lg text-left">
-                    <div class="h-2 bg-purple-400 rounded-t-md"></div>
-                    <form class="px-8 py-6 " [formGroup]="exerciseForm" (ngSubmit)="sumbmitExercise()">
-                        <label class="block font-semibold"> Name </label>
-                        <input type="text" formControlName="name"
-                            class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md">
-                        <label class="block mt-3 font-semibold"> Duration (minutes) </label>
-                        <input type="number" formControlName="duration"
-                            class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md">
-                        <label class="block mt-3 font-semibold"> Calories burned </label>
-                        <input type="number" formControlName="calories"
-                            class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md">
-                        <label class="block mt-3 font-semibold"> Date </label>
-                        <input type="date" formControlName="date"
-                            class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md">
 
-                        <div class="flex justify-between items-baseline">
-                            <button type="submit"
-                                class="mt-4 bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-purple-600 "
-                                [disabled]="exerciseForm.invalid">{{ isEditing ? 'Update' : 'Add' }}</button>
-                        </div>
-                    </form>
+        <!-- grid of cards -->
+        <div class="flex flex-wrap flex-row space-x-4 justify-center">
+            <p-card header="Total minutes">
+                <p class="m-0 font-bold">
+                    <img src="assets/minute.png" alt="clock" class="w-10 h-10 inline-block mr-2">
+                    {{ totalDuration }}
+                </p>
+            </p-card>
 
-                </div>
-            </div>
+            <p-card header="total calories burned">
+                <p class="m-0 font-bold">
+                    <img src="assets/calories.png" alt="clock" class="w-10 h-10 inline-block mr-2">
+                    {{ totalCalories }}
+                </p>
+            </p-card>
 
-
-            <h1 class="text-center font-semibold text-sm">Exercises</h1>
-            <ul class="border border-gray-200 rounded overflow-hidden shadow-md">
-                <li *ngFor="let exercise of exercises" class="px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none 
-                border-gray-200 transition-all duration-300 ease-in-out flex justify-between items-center">
-                    {{ exercise.name }} - {{ exercise.duration }} minutes - {{ exercise.calories }} calories burned
-                    added on {{ exercise.date | date: 'dd/MM/yyyy' }}
-                    <button (click)="deleteExercise(exercise.id!!)"
-                        class=" bg-red-500 text-white py-1 px-2 rounded-md hover:bg-red-600 justify-self-end">Delete</button>
-
-
-                    <button (click)="editExercise(exercise)"
-                        class=" bg-blue-500 text-white py-1 px-2 rounded-md hover:bg-blue-600 justify-self-end">Edit</button>
-
-                </li>
-            </ul>
+            <p-card header="total exercises">
+                <p class="m-0 font-bold">
+                    <img src="assets/fitness.png" alt="clock" class="w-10 h-10 inline-block mr-2">
+                    {{ totalExercises }}
+                </p>
+            </p-card>
         </div>
+
+
+
+
+        <p-dialog [(visible)]=" showExerciseForm">
+            <mg-exercise-form (formSubmitted)="sumbmitExercise($event)"
+                [exercise]="selectedExercise"></mg-exercise-form>
+        </p-dialog>
+
+
+
+        <h1 class="text-center mt-3  font-bold text-2xl
+        ">Exercises</h1>
+
+        <button (click)="addExercise()"
+            class=" bg-blue-500 text-white py-1 px-2 rounded-md hover:bg-blue-600 mb-2">Add</button>
+
+        <mg-exercise-list [exercises]="exercises" (delete)="deleteExercise($event)"
+            (edit)="editExercise($event)"></mg-exercise-list>
     </div>
+</div>
