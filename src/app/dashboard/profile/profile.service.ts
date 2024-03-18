@@ -9,9 +9,9 @@ export class ProfileService {
   // update user profile firebase
   private readonly afAuth = inject(AngularFireAuth);
 
-  async updateProfile(name: string, photoURL: string) {
+  updateProfile(name: string, photoURL: string) {
     try {
-      await this.afAuth.currentUser.then((user) => {
+      this.afAuth.currentUser.then((user) => {
         return user?.updateProfile({
           displayName: name,
           photoURL: photoURL

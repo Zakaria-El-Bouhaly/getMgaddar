@@ -11,12 +11,12 @@ export class ProfileComponent {
 
   constructor(private profileService: ProfileService) { }
 
-  async updateProfile(event: any) {
+  updateProfile(event: any) {
     try {
-      await this.profileService.updateProfile(event?.name, '');
+      this.profileService.updateProfile(event?.name, '');
       Swal.fire('Profile updated', 'Your profile has been updated', 'success');
     }
-    catch (error:any) {
+    catch (error: any) {
       Swal.fire('Error', error.message, 'error');
     }
 

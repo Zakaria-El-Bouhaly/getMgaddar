@@ -4,4 +4,4 @@ export interface Exercise {
     duration: number;
     calories: number;
     date: string;
-    }
+}
